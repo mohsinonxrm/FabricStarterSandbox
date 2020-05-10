@@ -1,15 +1,14 @@
 import * as React from "react";
 import { render } from "react-dom";
 import { initializeIcons } from "office-ui-fabric-react";
-
-import { ButtonDefaultExample } from "./ButtonDefaultExample";
+import { LabelBasicExample } from "./multimath";
 
 initializeIcons();
 
 function App() {
   return (
     <div>
-      <ButtonDefaultExample />
+      <LabelBasicExample />
     </div>
   );
 }
