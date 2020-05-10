@@ -2,16 +2,14 @@ import * as React from "react";
 import { render } from "react-dom";
 import { initializeIcons } from "office-ui-fabric-react";
 
-import { DetailsListDocumentsExample } from "./ItemListExample";
-//import { ButtonDefaultExample } from "./ButtonDefaultExample";
-//import CalendarButtonDefault from "./CalendarButtonExample";
+import { ButtonDefaultExample } from "./ButtonDefaultExample";
 
 initializeIcons();
 
 function App() {
   return (
     <div>
-      <DetailsListDocumentsExample />
+      <ButtonDefaultExample />
     </div>
   );
 }
