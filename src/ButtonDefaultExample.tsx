@@ -15,7 +15,7 @@ export interface IButtonExampleProps {
 // Example formatting
 const stackTokens: IStackTokens = { childrenGap: 40 };
 
-const ButtonDefaultExample: React.FunctionComponent<
+export const ButtonDefaultExample: React.FunctionComponent<
   IButtonExampleProps
 > = props => {
   const { disabled, checked } = props;
@@ -43,5 +43,3 @@ const ButtonDefaultExample: React.FunctionComponent<
 function _alertClicked(): void {
   alert("Clicked");
 }
-
-export default ButtonDefaultExample;

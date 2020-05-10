@@ -1,28 +1,17 @@
 import * as React from "react";
 import { render } from "react-dom";
-import {
-  CommandBarButton,
-  IContextualMenuProps,
-  IIconProps,
-  IStackStyles,
-  DefaultButton,
-  initializeIcons,
-  PrimaryButton,
-  Stack,
-  IStackTokens,
-  Button
-} from "office-ui-fabric-react";
-import ButtonDefaultExample from "./ButtonDefaultExample";
+import { initializeIcons } from "office-ui-fabric-react";
+
+import { DetailsListDocumentsExample } from "./ItemListExample";
+//import { ButtonDefaultExample } from "./ButtonDefaultExample";
+//import CalendarButtonDefault from "./CalendarButtonExample";
 
 initializeIcons();
 
 function App() {
   return (
     <div>
-      <DefaultButton iconProps={{ iconName: "Filter" }}>
-        Hover Over Me
-      </DefaultButton>
-      <ButtonDefaultExample />
+      <DetailsListDocumentsExample />
     </div>
   );
 }
