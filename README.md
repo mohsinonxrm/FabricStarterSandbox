@@ -1,2 +1,0 @@
-# FabricStarterSandbox
-Created with CodeSandbox
