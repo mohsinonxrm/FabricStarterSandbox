@@ -1,14 +1,14 @@
 import * as React from "react";
 import { render } from "react-dom";
 import { initializeIcons } from "office-ui-fabric-react";
-import { LabelBasicExample } from "./multimath";
+import { MultiMathGame } from "./multimath";
 
 initializeIcons();
 
 function App() {
   return (
     <div>
-      <LabelBasicExample />
+      <MultiMathGame />
     </div>
   );
 }

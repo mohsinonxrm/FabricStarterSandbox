@@ -8,6 +8,7 @@ import {
 import { getId } from "office-ui-fabric-react/lib/Utilities";
 import { Stack, IStackTokens } from "office-ui-fabric-react/lib/Stack";
 import { DefaultButton, PrimaryButton } from "office-ui-fabric-react";
+import { useConstCallback } from "@uifabric/react-hooks";
 
 // Tokens definition
 const containerStackTokens: IStackTokens = { childrenGap: 5 };
@@ -25,15 +26,58 @@ const narrowTextFieldStyles: Partial<ITextFieldStyles> = {
   fieldGroup: { width: 180 }
 };
 
-// Example formatting
-const gameButtonStackTokens: IStackTokens = { childrenGap: 10 };
+const gameTextFieldStyles: Partial<ITextFieldStyles> = {
+  fieldGroup: { width: 50 }
+};
 
-export const LabelBasicExample = () => {
+// Example formatting
+const gameButtonStackTokens: IStackTokens = { childrenGap: 5 };
+
+export const MultiMathGame = () => {
   // Use getId() to ensure that the ID is unique on the page.
   // (It's also okay to use a plain string without getId() and manually ensure uniqueness.)
   const playerNameId = getId("playerName");
   const factorId = getId("factor");
   const noOfProblems = getId("noOfProblems");
+
+  const [
+    playerNameTextFieldValue,
+    setPlayerNameTextFieldValue
+  ] = React.useState("");
+
+  const [factorTextFieldValue, setFactorTextFieldValue] = React.useState("");
+
+  const [
+    noOfProblemsTextFieldValue,
+    setNoOfProblemsTextFieldValue
+  ] = React.useState("");
+
+  const playerNameOnChangeTextFieldValue = useConstCallback(
+    (
+      event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>,
+      newValue?: string
+    ) => {
+      setPlayerNameTextFieldValue(newValue || "");
+    }
+  );
+
+  const factorOnChangeTextFieldValue = useConstCallback(
+    (
+      event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>,
+      newValue?: string
+    ) => {
+      setFactorTextFieldValue(newValue || "");
+    }
+  );
+
+  const noOfProblemsOnChangeTextFieldValue = useConstCallback(
+    (
+      event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>,
+      newValue?: string
+    ) => {
+      setNoOfProblemsTextFieldValue(newValue || "");
+    }
+  );
 
   return (
     <div>
@@ -50,9 +94,24 @@ export const LabelBasicExample = () => {
           </Stack.Item>
         </Stack>
         <Stack tokens={verticalGapStackTokens}>
-          <TextField id={playerNameId} styles={narrowTextFieldStyles} />
-          <TextField id={factorId} styles={narrowTextFieldStyles} />
-          <TextField id={noOfProblems} styles={narrowTextFieldStyles} />
+          <TextField
+            id={playerNameId}
+            value={playerNameTextFieldValue}
+            styles={narrowTextFieldStyles}
+            onChange={playerNameOnChangeTextFieldValue}
+          />
+          <TextField
+            id={factorId}
+            value={factorTextFieldValue}
+            styles={narrowTextFieldStyles}
+            onChange={factorOnChangeTextFieldValue}
+          />
+          <TextField
+            id={noOfProblems}
+            value={noOfProblemsTextFieldValue}
+            styles={narrowTextFieldStyles}
+            onChange={noOfProblemsOnChangeTextFieldValue}
+          />
           <Stack horizontal tokens={gameButtonStackTokens}>
             <PrimaryButton
               text="Start Game"
@@ -65,6 +124,23 @@ export const LabelBasicExample = () => {
               allowDisabledFocus
             />
           </Stack>
+          <Stack>
+            <div id="game">
+              {utils.range(1, noOfProblemsTextFieldValue).map(probId => (
+                <Stack tokens={verticalGapStackLabelTokens}>
+                  <Stack horizontal tokens={containerStackTokens}>
+                    <Label>
+                      {factorTextFieldValue} x {probId} =
+                    </Label>
+                    <TextField
+                      id={"prob" + probId}
+                      styles={gameTextFieldStyles}
+                    />
+                  </Stack>
+                </Stack>
+              ))}
+            </div>
+          </Stack>
         </Stack>
       </Stack>
     </div>
@@ -74,3 +150,33 @@ export const LabelBasicExample = () => {
 function _alertClicked(): void {
   alert("Clicked");
 }
+
+// Math science
+const utils = {
+  // Sum an array
+  sum: arr => arr.reduce((acc, curr) => acc + curr, 0),
+
+  // create an array of numbers between min and max (edges included)
+  range: (min, max) => Array.from({ length: max - min + 1 }, (_, i) => min + i),
+
+  // pick a random number between min and max (edges included)
+  random: (min, max) => min + Math.floor(Math.random() * (max - min + 1)),
+
+  // Given an array of numbers and a max...
+  // Pick a random sum (< max) from the set of all available sums in arr
+  randomSumIn: (arr, max) => {
+    const sets = [[]];
+    const sums = [];
+    for (let i = 0; i < arr.length; i++) {
+      for (let j = 0, len = sets.length; j < len; j++) {
+        const candidateSet = sets[j].concat(arr[i]);
+        const candidateSum = utils.sum(candidateSet);
+        if (candidateSum <= max) {
+          sets.push(candidateSet);
+          sums.push(candidateSum);
+        }
+      }
+    }
+    return sums[utils.random(0, sums.length - 1)];
+  }
+};
