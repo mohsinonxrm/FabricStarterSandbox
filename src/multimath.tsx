@@ -27,7 +27,7 @@ const narrowTextFieldStyles: Partial<ITextFieldStyles> = {
 };
 
 const gameTextFieldStyles: Partial<ITextFieldStyles> = {
-  fieldGroup: { width: 50 }
+  fieldGroup: { width: 70 }
 };
 
 // Example formatting
@@ -79,6 +79,29 @@ export const MultiMathGame = () => {
     }
   );
 
+  function onStartGameClick(): void {
+    alert(playerNameTextFieldValue);
+  }
+
+  function onCalculateScoreClick(): void {}
+
+  function PrepareGame() {
+    return (
+      <div>
+        {utils.range(1, noOfProblemsTextFieldValue).map(probId => (
+          <Stack tokens={verticalGapStackLabelTokens}>
+            <Stack horizontal tokens={containerStackTokens}>
+              <Label>
+                {factorTextFieldValue} x {probId} =
+              </Label>
+              <TextField id={"prob" + probId} styles={gameTextFieldStyles} />
+            </Stack>
+          </Stack>
+        ))}
+      </div>
+    );
+  }
+
   return (
     <div>
       <Stack horizontal tokens={containerStackTokens}>
@@ -115,30 +138,18 @@ export const MultiMathGame = () => {
           <Stack horizontal tokens={gameButtonStackTokens}>
             <PrimaryButton
               text="Start Game"
-              onClick={_alertClicked}
+              onClick={onStartGameClick}
               allowDisabledFocus
             />
             <DefaultButton
               text="Calculate Score"
-              onClick={_alertClicked}
+              onClick={onCalculateScoreClick}
               allowDisabledFocus
             />
           </Stack>
           <Stack>
             <div id="game">
-              {utils.range(1, noOfProblemsTextFieldValue).map(probId => (
-                <Stack tokens={verticalGapStackLabelTokens}>
-                  <Stack horizontal tokens={containerStackTokens}>
-                    <Label>
-                      {factorTextFieldValue} x {probId} =
-                    </Label>
-                    <TextField
-                      id={"prob" + probId}
-                      styles={gameTextFieldStyles}
-                    />
-                  </Stack>
-                </Stack>
-              ))}
+              <PrepareGame />
             </div>
           </Stack>
         </Stack>
@@ -146,10 +157,6 @@ export const MultiMathGame = () => {
     </div>
   );
 };
-
-function _alertClicked(): void {
-  alert("Clicked");
-}
 
 // Math science
 const utils = {
