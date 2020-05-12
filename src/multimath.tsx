@@ -160,6 +160,8 @@ export const MultiMathGame = () => {
   );
 };
 
+function forMe() {}
+
 // Math science
 const utils = {
   // Sum an array
