@@ -91,10 +91,14 @@ export const MultiMathGame = () => {
         {utils.range(1, noOfProblemsTextFieldValue).map(probId => (
           <Stack tokens={verticalGapStackLabelTokens}>
             <Stack horizontal tokens={containerStackTokens}>
-              <Label>
+              <Label key={"lbl" + probId}>
                 {factorTextFieldValue} x {probId} =
               </Label>
-              <TextField id={"prob" + probId} styles={gameTextFieldStyles} />
+              <TextField
+                key={"prob" + probId}
+                id={"prob" + probId}
+                styles={gameTextFieldStyles}
+              />
             </Stack>
           </Stack>
         ))}
@@ -148,9 +152,7 @@ export const MultiMathGame = () => {
             />
           </Stack>
           <Stack>
-            <div id="game">
-              <PrepareGame />
-            </div>
+            <PrepareGame />
           </Stack>
         </Stack>
       </Stack>
@@ -161,17 +163,19 @@ export const MultiMathGame = () => {
 // Math science
 const utils = {
   // Sum an array
-  sum: arr => arr.reduce((acc, curr) => acc + curr, 0),
+  sum: (arr: any) => arr.reduce((acc: any, curr: any) => acc + curr, 0),
 
   // create an array of numbers between min and max (edges included)
-  range: (min, max) => Array.from({ length: max - min + 1 }, (_, i) => min + i),
+  range: (min: number, max: number) =>
+    Array.from({ length: max - min + 1 }, (_, i) => min + i),
 
   // pick a random number between min and max (edges included)
-  random: (min, max) => min + Math.floor(Math.random() * (max - min + 1)),
+  random: (min: number, max: number) =>
+    min + Math.floor(Math.random() * (max - min + 1)),
 
   // Given an array of numbers and a max...
   // Pick a random sum (< max) from the set of all available sums in arr
-  randomSumIn: (arr, max) => {
+  randomSumIn: (arr: string | any[], max: number) => {
     const sets = [[]];
     const sums = [];
     for (let i = 0; i < arr.length; i++) {
