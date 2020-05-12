@@ -88,7 +88,7 @@ export const MultiMathGame = () => {
   function PrepareGame() {
     return (
       <div>
-        {utils.range(1, noOfProblemsTextFieldValue).map(probId => (
+        {utils.range(1, parseInt(noOfProblemsTextFieldValue)).map(probId => (
           <Stack tokens={verticalGapStackLabelTokens}>
             <Stack horizontal tokens={containerStackTokens}>
               <Label key={"lbl" + probId}>
@@ -159,8 +159,6 @@ export const MultiMathGame = () => {
     </div>
   );
 };
-
-function forMe() {}
 
 // Math science
 const utils = {
